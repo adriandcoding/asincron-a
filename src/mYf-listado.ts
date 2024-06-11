@@ -1,25 +1,49 @@
 import { Myf } from "./mYf-model";
-const crearElementoImagen = (imagen: string): HTMLImageElement => {
-  const foto = document.createElement("img");
-  foto.src = imagen;
-
-  return foto;
+import { obtenerPersonajes } from "./mYf-api";
+const obtenerUrlImagen = (personaje: Myf): string | null => {
+  if (personaje && personaje.imagen) {
+    return `http://localhost:3000/${personaje.imagen}`;
+  } else {
+    return null;
+  }
 };
+const crearElementoImagen = (url: string): HTMLImageElement => {
+  const imagen = document.createElement("img");
+  imagen.src = url;
+
+  return imagen;
+};
+
 const crearElementoParrafo = (texto: string): HTMLParagraphElement => {
   const parrafo = document.createElement("p");
   parrafo.textContent = texto;
   return parrafo;
 };
-const crearContenedorPersonaje = (personajes: Myf): HTMLDivElement => {
-  const personaje = document.createElement("div");
-  personaje.classList.add("pelicula-contenedor");
-  const imagen = crearElementoImagen(personajes.imagen);
-  personaje.appendChild(imagen);
-  const nombre = crearElementoParrafo(personajes.nombre);
-  personaje.appendChild(nombre);
-  const especialidad = crearElementoParrafo(personajes.especialidad);
-  personaje.appendChild(especialidad);
-  const habilidad = crearElementoParrafo(personajes.habilidades.toString());
-  personaje.appendChild(habilidad);
-  return personaje;
+const crearContenedorPersonaje = (personaje: Myf): HTMLDivElement => {
+  const perfil = document.createElement("div");
+  perfil.classList.add("pelicula-contenedor");
+  const imagenUrl = obtenerUrlImagen(personaje);
+  if (imagenUrl) {
+    const imagen = crearElementoImagen(imagenUrl);
+    perfil.appendChild(imagen);
+  }
+  const nombre = crearElementoParrafo(personaje.nombre);
+  perfil.appendChild(nombre);
+  const especialidad = crearElementoParrafo(personaje.especialidad);
+  perfil.appendChild(especialidad);
+  const habilidad = crearElementoParrafo(personaje.habilidades.toString());
+  perfil.appendChild(habilidad);
+  return perfil;
+};
+const pintarPeliculas = async (): Promise<void> => {
+  const personajes = await obtenerPersonajes();
+  const listado = document.querySelector("#listado-peliculas");
+  if (listado && listado instanceof HTMLDivElement) {
+    personajes.forEach((personaje: Myf) => {
+      const contenedorPersonaje = crearContenedorPersonaje(personaje);
+      listado.appendChild(contenedorPersonaje);
+    });
+  } else {
+    throw new Error("No se ha encontrado el contenedor del listado");
+  }
 };
