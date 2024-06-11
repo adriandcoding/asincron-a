@@ -71,7 +71,7 @@ button:hover {
   transition: border-color 0.3s, background-color 0.3s;
 }
 .input-gradient:focus {
-  border-color: #007bff;
+  border-color: var(--color-primary);
   background: linear-gradient(
     90deg,
     rgba(0, 123, 255, 0.1),
