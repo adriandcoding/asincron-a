@@ -19,7 +19,7 @@ const crearElementoParrafo = (texto: string): HTMLParagraphElement => {
   parrafo.textContent = texto;
   return parrafo;
 };
-const crearContenedorPersonaje = (personaje: Myf): HTMLDivElement => {
+export const crearContenedorPersonaje = (personaje: Myf): HTMLDivElement => {
   const perfil = document.createElement("div");
   perfil.classList.add("personaje-contenedor");
   const imagenUrl = obtenerUrlImagen(personaje);
