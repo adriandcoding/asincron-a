@@ -27,11 +27,15 @@ const crearContenedorPersonaje = (personaje: Myf): HTMLDivElement => {
     const imagen = crearElementoImagen(imagenUrl);
     perfil.appendChild(imagen);
   }
-  const nombre = crearElementoParrafo(personaje.nombre);
+  const nombre = crearElementoParrafo(`Nombre:  ${personaje.nombre}`);
   perfil.appendChild(nombre);
-  const especialidad = crearElementoParrafo(personaje.especialidad);
+  const especialidad = crearElementoParrafo(
+    `Especialidad:  ${personaje.especialidad}`
+  );
   perfil.appendChild(especialidad);
-  const habilidad = crearElementoParrafo(personaje.habilidades.toString());
+  const habilidad = crearElementoParrafo(
+    `Habilidad:  ${personaje.habilidades.toString()}`
+  );
   perfil.appendChild(habilidad);
   return perfil;
 };

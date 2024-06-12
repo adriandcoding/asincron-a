@@ -91,14 +91,15 @@ button:hover {
   gap: 10px;
   padding: 32px;
   background-color: white;
+  height: 400px;
+  justify-content: space-evenly;
+
   img {
     display: flex;
-    width: 120px;
     height: 120px;
     margin: 0 auto 32px;
   }
   p {
-    font-family: var(--font-family);
     font-weight: 500;
     text-align: left;
   }
