@@ -1,5 +1,5 @@
-import { Myf } from "./mYf-model";
-import { obtenerPersonajes } from "./mYf-api";
+import { Myf } from "./MyF-model";
+import { obtenerPersonajes } from "./MyF-api";
 const obtenerUrlImagen = (personaje: Myf): string | null => {
   if (personaje && personaje.imagen) {
     return `http://localhost:3000/${personaje.imagen}`;
@@ -21,7 +21,7 @@ const crearElementoParrafo = (texto: string): HTMLParagraphElement => {
 };
 const crearContenedorPersonaje = (personaje: Myf): HTMLDivElement => {
   const perfil = document.createElement("div");
-  perfil.classList.add("pelicula-contenedor");
+  perfil.classList.add("personaje-contenedor");
   const imagenUrl = obtenerUrlImagen(personaje);
   if (imagenUrl) {
     const imagen = crearElementoImagen(imagenUrl);
@@ -35,9 +35,9 @@ const crearContenedorPersonaje = (personaje: Myf): HTMLDivElement => {
   perfil.appendChild(habilidad);
   return perfil;
 };
-const pintarPeliculas = async (): Promise<void> => {
+const pintarPersonajes = async (): Promise<void> => {
   const personajes = await obtenerPersonajes();
-  const listado = document.querySelector("#listado-peliculas");
+  const listado = document.querySelector(".listado-personajes");
   if (listado && listado instanceof HTMLDivElement) {
     personajes.forEach((personaje: Myf) => {
       const contenedorPersonaje = crearContenedorPersonaje(personaje);
@@ -47,3 +47,4 @@ const pintarPeliculas = async (): Promise<void> => {
     throw new Error("No se ha encontrado el contenedor del listado");
   }
 };
+document.addEventListener("DOMContentLoaded", pintarPersonajes);
