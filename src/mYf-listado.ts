@@ -1,4 +1,5 @@
-import { obtenerPersonajes } from "./mYf-api";
+import { obtenerPersonajes } from "./MyF-api";
+import { Myf } from "./MyF-model";
 const obtenerUrlImagen = (personaje: Myf): string | null => {
   if (personaje && personaje.imagen) {
     return `http://localhost:3000/${personaje.imagen}`;
