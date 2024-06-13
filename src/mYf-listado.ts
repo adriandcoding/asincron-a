@@ -52,14 +52,19 @@ const pintarPersonajes = async (): Promise<void> => {
     throw new Error("No se ha encontrado el contenedor del listado");
   }
 };
-const filtrarBtn = document.getElementById("button");
-const filtroInput = document.getElementById("Filtrar");
-if (filtrarBtn && (filtrarBtn as HTMLButtonElement)) {
-  filtrarBtn.addEventListener("click", async (): Promise<void> => {
-    const nombre = (filtroInput as HTMLInputElement).value || "";
-    await filtrarPersonajes(nombre);
-  });
-} else {
-  throw new Error("No se ha encontrado el botón de filtrado");
-}
-document.addEventListener("DOMContentLoaded", pintarPersonajes);
+const funcionalidadFiltrar = () => {
+  const filtrarBtn = document.getElementById("button");
+  const filtroInput = document.getElementById("Filtrar");
+  if (filtrarBtn && (filtrarBtn as HTMLButtonElement)) {
+    filtrarBtn.addEventListener("click", async (): Promise<void> => {
+      const nombre = (filtroInput as HTMLInputElement).value || "";
+      await filtrarPersonajes(nombre);
+    });
+  } else {
+    throw new Error("No se ha encontrado el botón de filtrado");
+  }
+};
+document.addEventListener("DOMContentLoaded", () => {
+  funcionalidadFiltrar();
+  pintarPersonajes();
+});
