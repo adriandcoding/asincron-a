@@ -1,30 +1,26 @@
 import { crearContenedorPersonaje } from "../MyF-listado";
 import { Myf } from "./filtrado-model";
 import { obtenerPersonajes } from "./api-filtrado";
-const filtrarPersonajes = async (nombre: string): Promise<void> => {
-  const personajes = await obtenerPersonajes();
-  const listado = document.querySelector(".listado-personajes");
+export const filtrarPersonajes = async (nombre: string): Promise<void> => {
+  try {
+    const personajes = await obtenerPersonajes();
+    const listado = document.querySelector(".listado-personajes");
 
-  if (listado && listado instanceof HTMLDivElement) {
-    listado.innerHTML = ""; // Limpiar el listado antes de agregar los personajes filtrados
+    if (listado && listado instanceof HTMLDivElement) {
+      listado.innerHTML = "";
 
-    personajes
-      .filter((personaje: Myf) =>
-        personaje.nombre.toLowerCase().includes(nombre.toLowerCase())
-      )
-      .forEach((personaje: Myf) => {
-        const contenedorPersonaje = crearContenedorPersonaje(personaje);
-        listado.appendChild(contenedorPersonaje);
-      });
-  } else {
-    throw new Error("No se ha encontrado el contenedor del listado");
+      personajes
+        .filter((personaje: Myf): boolean =>
+          personaje.nombre.toLowerCase().includes(nombre.toLowerCase())
+        )
+        .forEach((personaje: Myf): void => {
+          const contenedorPersonaje = crearContenedorPersonaje(personaje);
+          listado.appendChild(contenedorPersonaje);
+        });
+    } else {
+      throw new Error("No se ha encontrado el contenedor del listado");
+    }
+  } catch (error) {
+    alert(error);
   }
 };
-const filtrarBtn = document.getElementById("button");
-const filtroInput = document.getElementById("Filtrar");
-if (filtrarBtn && (filtrarBtn as HTMLButtonElement)) {
-  filtrarBtn.addEventListener("click", async () => {
-    const nombre = (filtroInput as HTMLInputElement).value || "";
-    await filtrarPersonajes(nombre);
-  });
-}
