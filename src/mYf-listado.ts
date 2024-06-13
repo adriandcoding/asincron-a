@@ -1,5 +1,5 @@
-import { obtenerPersonajes } from "./MyF-api";
-import { Myf } from "./MyF-model";
+import { obtenerPersonajes } from "./mYf-api";
+import { Myf } from "./mYf-model";
 import { filtrarPersonajes } from "./filtrado/MyF-filtrado";
 const obtenerUrlImagen = (personaje: Myf): string | null => {
   if (personaje && personaje.imagen) {
@@ -44,6 +44,7 @@ const pintarPersonajes = async (): Promise<void> => {
   const personajes = await obtenerPersonajes();
   const listado = document.querySelector(".listado-personajes");
   if (listado && listado instanceof HTMLDivElement) {
+    listado.innerHTML = "";
     personajes.forEach((personaje: Myf) => {
       const contenedorPersonaje = crearContenedorPersonaje(personaje);
       listado.appendChild(contenedorPersonaje);
